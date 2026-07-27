@@ -1,15 +1,12 @@
-import mongoose from "mongoose";
+import { Pool } from "pg";
+import "dotenv/config";
 
-const Connect = async () => {
-  try {
-    const callMongo = await mongoose.connect(process.env.MONGO_CONN);
-    console.log(
-        "GoMicro has connected to MongoDB."
-    );
-  } catch (error) {
-    console.error(error);
-    process.exit(1);
-  }
-};
+const pool = new Pool({
+  host: process.env.DB_HOST, 
+  port: process.env.DB_PORT, 
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME
+});
 
-export default Connect;
+export default pool;
